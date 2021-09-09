@@ -1,4 +1,4 @@
-var playerName = window.prompt("What is your robot's name?");
+
 var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
@@ -7,23 +7,17 @@ var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+
+var playerName = window.prompt("What is your robot's name?");
 var fight = function(enemyName) {
-    // alert player that they are starting the round
-    window.alert("Welcome to Robot Gladiators!");
+    // alert the user the round is starting
+    while(enemyHealth > 0) {
+// window.alert("Welcome to Robot Gladiators!");
 
-    
-for(var i = 0; i < enemyNames.length; i++) {
-    console.log(enemyNames[i]);
-    console.log(i);
-    console.log(enemyNames[i] + " is at " + i + " index");
-  }
-
-
-    //fight or flee
     var promptFight = window.prompt("Do you want to FIGHT or SKIP the battle? Enter 'FIGHT' or 'SKIP' to choose.");
     
     if (promptFight === "fight" || promptFight === "FIGHT") {
-    // Subtract the value of `playerAttack` from the value of `enemyHealth` and use that result to update the value in the `enemyHealth` variable
+    // remove enemys health and update new health
     enemyHealth = enemyHealth - playerAttack;  
     console.log(
         playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
@@ -37,7 +31,7 @@ for(var i = 0; i < enemyNames.length; i++) {
         window.alert(enemyName + " still has " + enemyHealth + " health remaining.");
     }
 
-    // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
+    // remove player health and update new health
     playerHealth = playerHealth - enemyAttack;
     console.log(
         enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
@@ -66,6 +60,18 @@ for(var i = 0; i < enemyNames.length; i++) {
                 }
 };
 
+}
+
   for(var i = 0; i < enemyNames.length; i++) {
-    fight(enemyNames[i]);
+      var pickedEnemyName = enemyNames[i];
+      enemyHealth = 50;
+    fight(pickedEnemyName);
   }
+
+// fight();
+
+// for(var i = 0; i < enemyNames.length; i++) {
+//     console.log(enemyNames[i]);
+//     console.log(i);
+//     console.log(enemyNames[i] + " is at " + i + " index");
+//   } 
