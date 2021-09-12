@@ -2,10 +2,16 @@ var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
-
+                // function to generate random num value
+                var randomNumber = function(min, max) {
+                    var value = Math.floor(Math.random() * (max - min +1) + min);
+    
+                    return value;
+    }
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
-var enemyHealth = 50;
+var enemyHealth = randomNumber(40, 60);
 var enemyAttack = 12;
+
 
 console.log(enemyNames);
 console.log(enemyNames.length);
@@ -24,15 +30,17 @@ var fight = function(enemyName) {
         var confirmSkip = window.confirm("Are you sure you want to quit?");
         if (confirmSkip) {
             window.alert(playerName + " has chosen to skip the fight. Goodbye!");
-            playerMoney = playerMoney - 2;
+            playerMoney = Math.max(0, playerMoney - 10);
             console.log("playerMoney", playerMoney);
             break;
     }
 }
 
     // if (promptFight === "fight" || promptFight === "FIGHT") {
-    // remove enemys health and update new health
-    enemyHealth = enemyHealth - playerAttack;  
+    // generate random damage calue based on the players attack power
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+
+    enemyHealth = Math.max(0, enemyHealth - damage);  
     console.log(
         playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
     );
@@ -43,11 +51,13 @@ var fight = function(enemyName) {
         playerMoney = playerMoney + 20;
         break;
     } else {
-        window.alert(enemyName + " still has " + enemyHealth + " health remaining.");
+        window.alert(enemyName + " has " + enemyHealth + " health remaining.");
     }
 
     // remove player health and update new health
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+    playerHealth = Math.max(0, playerHealth - damage);
     console.log(
         enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
     );
@@ -57,7 +67,7 @@ var fight = function(enemyName) {
         window.alert(playerName + " has died!");
         break;
     } else {
-        window.alert(playerName + " still has " + playerHealth + " health remaining.");
+        window.alert(playerName + " has " + playerHealth + " health remaining.");
     }
     }
 
@@ -72,7 +82,7 @@ playerMoney = 10;
         if (playerHealth > 0) {
             window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
             var pickedEnemyName = enemyNames[i];
-            enemyHealth = 50;
+            enemyHealth = randomNumber(40, 60);
         fight(pickedEnemyName);
             //if were not at the last enemy in array...
         if (playerHealth > 0 && i < enemyNames.length - 1) {
@@ -88,8 +98,6 @@ playerMoney = 10;
         window.alert("You have lost your robot in battle! GAME OVER");
         break;
     }
-
-
 
 }
 
