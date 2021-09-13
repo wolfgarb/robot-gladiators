@@ -5,7 +5,9 @@ var randomNumber = function(min, max) {
     return value;
 }
 
-//function to set name 
+//GAME INFO AND VARIABLES
+
+//player info
 var getPlayerName = function() {
     var name = "";
     while (name === "" || name === null) {
@@ -48,6 +50,7 @@ var playerInfo = {
     }
 };
 
+//enemy info
 var enemyInfo = [
     {
         name: "Roborto",
@@ -68,23 +71,36 @@ var enemyInfo = [
 // console.log(enemy.names[0]);
 // console.log(enemy.names[3]);
 
+// GAME FUNCTIONS
 
-var fight = function(enemy) {
-    // alert the user the round is starting
-    while(playerInfo.health > 0 && enemy.health > 0) {
-
-    var promptFight = window.prompt("Do you want to FIGHT or SKIP the battle? Enter 'FIGHT' or 'SKIP' to choose.");
-    
-    // if player chooses to skip
-    if (promptFight === "skip" || promptFight === "SKIP") {
+var fightOrSkip = function() {
+    // ask player if they want to fight/skip using new function
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP the battle? Enter 'FIGHT' or 'SKIP' to choose.")
+    //recursive function here
+    if (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again!");
+        return fightOrSkip();
+        }
+    promptFight = promptFight.toLowerCase();
+    //if player picks skip, confirm and stop loop
+    if (promptFight === "skip") {
         var confirmSkip = window.confirm("Are you sure you want to quit?");
         if (confirmSkip) {
             window.alert(playerInfo.name + " has chosen to skip the fight. Goodbye!");
             playerInfo.money = Math.max(0, playerInfo.money - 10);
-            console.log("playerInfo.money", playerInfo.money);
-            break;
+
+            return true;
+        }
+
+
     }
 }
+
+var fight = function(enemy) {
+    while(playerInfo.health > 0 && enemy.health > 0) {
+        if (fightOrSkip()) {
+            break;
+        } 
 
     // if (promptFight === "fight" || promptFight === "FIGHT") {
     // generate random damage calue based on the players attack power
@@ -119,8 +135,7 @@ var fight = function(enemy) {
     } else {
         window.alert(playerInfo.name + " has " + playerInfo.health + " health remaining.");
     }
-    }
-
+  }
 };
 
 var startGame = function() {
@@ -141,7 +156,7 @@ playerInfo.reset();
                 if (storeConfirm) {
                 shop();
         }
-    }
+    
 
     } else {
         window.alert("You have lost your robot in battle! GAME OVER");
@@ -159,6 +174,7 @@ var endGame = function() {
     else {
     window.alert("The game has now ended. Let's see how you did!");
     }
+    
 var playAgainConfirm = window.confirm("Would you like to play again?");
     if (playAgainConfirm) {
         //restart game
@@ -199,7 +215,11 @@ var shop = function() {
                 shop();
                 break;
             }
-        };
+        }
+}
 
 
+
+
+// RUN GAME
 startGame();
