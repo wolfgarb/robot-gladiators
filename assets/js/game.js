@@ -46,7 +46,7 @@ var fight = function(enemy) {
         // generate random damage calue based on the players attack power
         var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
-        enemy.health = Math.max(0, enemy.health - damage);  
+        enemy.health = Math.max(0, enemy.health - damage);
         console.log(
             playerInfo.name + 
             " attacked " + 
